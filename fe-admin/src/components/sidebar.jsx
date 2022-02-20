@@ -1,7 +1,14 @@
 import React from 'react';
 import sidebarLogo from '../assets/images/logo.png';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Sidebar () {
+    const dispatch = useDispatch();
+
+
+    const navigation = useNavigate();
+    
     return (
         <div className="sidebar-menu sticky-sidebar-menu">
             {/* <!-- logo start --> */}
@@ -12,14 +19,14 @@ function Sidebar () {
             {/* <!-- if logo is image enable this --> */}
             {/* <!-- image logo -- */}
             <div className="logo">
-                <a href="index.html">
+                <a onClick={() => navigation('/')}>
                     <img src="image-path" alt="Your logo" title="Your logo" className="img-fluid" style={{height: '35px'}} />
                 </a>
             </div>
             {/* <!-- //image logo --> */}
 
             <div className="logo-icon text-center">
-                <a href="index.html" title="logo">
+                <a onClick={() => navigation('/')} title="logo">
                     <img src={sidebarLogo} alt="logo-icon" />
                 </a>
             </div>
@@ -30,9 +37,9 @@ function Sidebar () {
                 {/* <!-- sidebar nav start --> */}
                 <ul className="nav nav-pills nav-stacked custom-nav">
                     <li>
-                        <a href="index.html"><i className="fa fa-tachometer"></i><span> Dashboard</span></a>
+                        <a onClick={() => navigation('products')}><i className="fa fa-tachometer"></i><span> Products</span></a>
                     </li>
-                    <li className="menu-list">
+                    {/* <li className="menu-list">
                         <a href="#"><i className="fa fa-cogs"></i>
                             <span>Elements <i className="lnr lnr-chevron-right"></i></span></a>
                         <ul className="sub-menu-list">
@@ -40,15 +47,15 @@ function Sidebar () {
                             <li><a href="cards.html">Default cards</a> </li>
                             <li><a href="people.html">People cards</a></li>
                         </ul>
+                    </li> */}
+                    <li>
+                        <a onClick={() => navigation('transactions')} ><i className="fa fa-table"></i> <span>Transaction Products</span></a>
                     </li>
                     <li>
-                        <a href="pricing.html"><i className="fa fa-table"></i> <span>Pricing tables</span></a>
-                    </li>
-                    <li>
-                        <a href="blocks.html"><i className="fa fa-th"></i> <span>Content blocks</span></a>
+                        <a onClick={() => navigation('user-members')} ><i className="fa fa-th"></i> <span>User Member</span></a>
                     </li>
                     <li className="active">
-                        <a href="forms.html"><i className="fa fa-file-text"></i> <span>Forms</span></a>
+                        <a onClick={() => navigation('user-operator')} ><i className="fa fa-file-text"></i> <span>User Operator</span></a>
                     </li>
                 </ul>
                 {/* <!-- //sidebar nav end --> */}
