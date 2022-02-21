@@ -7,19 +7,28 @@ import { getDataMembers } from '../actions/member';
 import { Table, Pagination, Button, Form, Col, Row } from 'react-bootstrap';
 import { AiOutlineUserAdd, AiFillEdit, AiFillDelete, AiOutlineUser } from 'react-icons/ai';
 
-function Home () {
-    const dispatch = useDispatch();
-    const { data, loading } = useSelector(state => {
-        return {
-            data : state.members.data,
-            loading : state.members.data
-        }
-    });
-
+function UserMembers () {
     const [page, setPage] = useState(1);
     const [size, setSize] = useState(10);
     const [totalPage, setTotalPage] = useState(0);
     const [currPage, setCurrPage] = useState(1);
+    const dispatch = useDispatch();
+    const { data, loading } = useSelector(state => {
+        return {
+            data : state.members.data,
+            loading : state.members.loading
+        }
+    });
+
+    useEffect(() => {
+        if (!data.length) {
+            dispatch(getDataMembers(page, size));
+            setTotalPage(data.totalPage);
+            setCurrPage(data.currentPage);
+        }
+    }, []);
+
+
     // ====================== MODAL DETAIL ====================
     const [showModalDetail, setShowModalDetail] = useState(false);
     const handleClose_modalDetail = () => setShowModalDetail(false);
@@ -209,9 +218,8 @@ function Home () {
     }
 
     const renderDataUser = () => {
-        if (data.data.rows) {
-            console.log(data.data)
-            return data.data.rows.map((item, idx) => {
+        if (data.length) {
+            return data.rows.map((item, idx) => {
                 return (
                     <tr key={item.id}>
                         <td>{ idx + 1 }</td>
@@ -253,19 +261,13 @@ function Home () {
         } else {
             return (
                 <tr>
-                    <td colSpan="9">
+                    <td colSpan="9" style={{ textAlign: 'center' }}>
                         Data not found
                     </td>
                 </tr>
             )
         }
     }
-
-    useEffect(() => {
-        dispatch(getDataMembers(page, size));
-        setTotalPage(data.totalPage);
-        setCurrPage(data.currentPage);
-    }, []);
 
     return (
         <div className="container-fluid content-top-gap">
@@ -276,4 +278,4 @@ function Home () {
         </div>
     )
 }
-export default Home;
+export default UserMembers;

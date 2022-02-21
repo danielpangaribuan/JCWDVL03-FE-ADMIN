@@ -8,8 +8,7 @@ export const getDataMembers = (page, size) => {
             dispatch({ type : START_GET_MEMBERS })
             const query = `/api/users?page=${page}&size=${size}`;
             const respond = await Axios.get(API_URL + query);
-            dispatch({ type : GET_DATA_MEMBERS, payload : respond.data });
-            console.log(respond)
+            dispatch({ type : GET_DATA_MEMBERS, payload : respond.data.data });
             dispatch({ type : END_GET_MEMBERS });
         } catch (error) {
             dispatch({ type : END_GET_MEMBERS });
