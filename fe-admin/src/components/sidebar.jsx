@@ -49,7 +49,7 @@ function Sidebar () {
                         </ul>
                     </li> */}
                     <li>
-                        <a onClick={() => navigation('transactions')} ><i className="fa fa-table"></i> <span>Transaction Products</span></a>
+                        <a onClick={() => navigation('transaction')} ><i className="fa fa-table"></i> <span>Transaction Products</span></a>
                     </li>
                     <li>
                         <a onClick={() => navigation('user-members')} ><i className="fa fa-th"></i> <span>User Member</span></a>

@@ -10,6 +10,7 @@ import Sidebar from './components/sidebar';
 // ====== PAGES =====
 import Home from './pages/home';
 import UserMembers from './pages/userMembers';
+import Transaction from './pages/transaction';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
             <Route path="" element={<Home />} />
             {/* <Route path="login" element={<Login />} /> */}
             {/* <Route path="products" element={<Products />} /> */}
-            {/* <Route path="transaction" element={<Transaction />} /> */}
+            <Route path="transaction" element={<Transaction />} />
             {/* <Route path="report" element={<Report />} /> */}
             <Route path="user-members" element={<UserMembers />} />
             {/* <Route path="userAdmin" element={<UserAdmin />} /> */}

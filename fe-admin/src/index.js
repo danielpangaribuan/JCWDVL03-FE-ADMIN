@@ -7,13 +7,23 @@ import { BrowserRouter } from 'react-router-dom';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import ReduxThunk from 'redux-thunk';
 
-import membersReducer from './reducers/members-reducer';
+import usersReducer from './reducers/users-reducer';
+import transactionsReducer from './reducers/transactions-reducer';
+import transactionDetailReducer from './reducers/transactionDetail-reducer';
+import transactionUpdateStatusReducer from './reducers/transactionUpdateStatus-reducer';
+import comboStatusTransactionReducer from './reducers/transactionStatusCombo-reducer';
+import locationReducer from './reducers/location-reducer';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/style-starter.css';
 
 const allReducer = combineReducers({
-  members: membersReducer,
+  users: usersReducer,
+  transactions: transactionsReducer,
+  transactionDetail: transactionDetailReducer,
+  transactionUpdateStatus: transactionUpdateStatusReducer,
+  transactionStatusCombo: comboStatusTransactionReducer,
+  location: locationReducer
 });
 
 const STORE = createStore(allReducer, composeWithDevTools(applyMiddleware(ReduxThunk)));

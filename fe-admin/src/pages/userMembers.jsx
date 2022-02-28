@@ -3,31 +3,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import Moment from 'react-moment';
 import Card from '../components/card';
 import MyModal from '../components/modal';
-import { getDataMembers } from '../actions/member';
+import { getDataUsers } from '../actions/user';
 import { Table, Pagination, Button, Form, Col, Row } from 'react-bootstrap';
-import { AiOutlineUserAdd, AiFillEdit, AiFillDelete, AiOutlineUser } from 'react-icons/ai';
+import { AiFillDelete, AiOutlineUser } from 'react-icons/ai';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 function UserMembers () {
     const [page, setPage] = useState(1);
-    const [size, setSize] = useState(10);
-    const [totalPage, setTotalPage] = useState(0);
-    const [currPage, setCurrPage] = useState(1);
+    const [size, setSize] = useState(5);
+    const [startDate, setStartDate] = useState(new Date());
     const dispatch = useDispatch();
-    const { data, loading } = useSelector(state => {
+    const { data, loading, totalPage, currPage } = useSelector(state => {
         return {
-            data : state.members.data,
-            loading : state.members.loading
+            data : state.users.data,
+            totalPage : state.users.data.totalPage,
+            currPage: state.users.data.currentPage,
+            loading : state.users.loading
         }
     });
 
     useEffect(() => {
-        if (!data.length) {
-            dispatch(getDataMembers(page, size));
-            setTotalPage(data.totalPage);
-            setCurrPage(data.currentPage);
-        }
-    }, []);
-
+        dispatch(getDataUsers(page, size, 0));
+    }, [page]);
 
     // ====================== MODAL DETAIL ====================
     const [showModalDetail, setShowModalDetail] = useState(false);
@@ -37,50 +35,117 @@ function UserMembers () {
     const modalUserDetail = () => {
         return (
             <Form>
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-                    <Form.Label column sm="3">
-                        Nama Penerima
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control plaintext readOnly defaultValue="email@example.com" />
-                    </Col>
-                </Form.Group>
+                <Row>
+                    <Col sm="6">
+                        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+                            <Form.Label column sm="5">
+                                Nama Lengkap
+                            </Form.Label>
+                            <Col sm="7">
+                                <Form.Control plaintext readOnly disabled defaultValue="email@example.com" />
+                            </Col>
+                        </Form.Group>
 
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-                    <Form.Label column sm="3">
-                        Alamat Penerima
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control type="password" placeholder="Password" />
-                    </Col>
-                </Form.Group>
+                        <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                            <Form.Label column sm="5">
+                                Email
+                            </Form.Label>
+                            <Col sm="7">
+                                <Form.Control plaintext readOnly disabled defaultValue="Password" />
+                            </Col>
+                        </Form.Group>
 
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-                    <Form.Label column sm="3">
-                        Nama Provinsi
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control type="password" placeholder="Password" />
-                    </Col>
-                </Form.Group>
+                        <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                            <Form.Label column sm="5">
+                                Username
+                            </Form.Label>
+                            <Col sm="7">
+                                <Form.Control plaintext readOnly disabled defaultValue="Password" />
+                            </Col>
+                        </Form.Group>
 
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-                    <Form.Label column sm="3">
-                        Nama Kota
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control type="password" placeholder="Password" />
-                    </Col>
-                </Form.Group>
+                        <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                            <Form.Label column sm="5">
+                                Jenis Kelamin
+                            </Form.Label>
+                            <Col sm="7">
+                                <Form.Control plaintext readOnly disabled defaultValue="Password" />
+                            </Col>
+                        </Form.Group>
 
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-                    <Form.Label column sm="3">
-                        Kodepos
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                            <Form.Label column sm="5">
+                                Tanggal Lahir
+                            </Form.Label>
+                            <Col sm="7">
+                                <Form.Control plaintext readOnly disabled defaultValue="Password" />
+                            </Col>
+                        </Form.Group>
+
+                        <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                            <Form.Label column sm="5">
+                                Status User
+                            </Form.Label>
+                            <Col sm="7">
+                                <Form.Check 
+                                    type="switch"
+                                    id="custom-switch"
+                                    style={{paddingLeft: '40px'}}
+                                    className="h-100 d-flex align-items-center"
+                                />
+                            </Col>
+                        </Form.Group>
                     </Col>
-                </Form.Group>
+
+                    <Col sm="6">
+                        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+                            <Form.Label column sm="5">
+                                Nama Penerima
+                            </Form.Label>
+                            <Col sm="7">
+                                <Form.Control plaintext readOnly disabled defaultValue="email@example.com" />
+                            </Col>
+                        </Form.Group>
+
+                        <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                            <Form.Label column sm="5">
+                                Alamat Penerima
+                            </Form.Label>
+                            <Col sm="7">
+                                <Form.Control plaintext readOnly disabled defaultValue="Password" />
+                            </Col>
+                        </Form.Group>
+
+                        <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                            <Form.Label column sm="5">
+                                Nama Provinsi
+                            </Form.Label>
+                            <Col sm="7">
+                                <Form.Control plaintext readOnly disabled defaultValue="Password" />
+                            </Col>
+                        </Form.Group>
+
+                        <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                            <Form.Label column sm="5">
+                                Nama Kota
+                            </Form.Label>
+                            <Col sm="7">
+                                <Form.Control plaintext readOnly disabled defaultValue="Password" />
+                            </Col>
+                        </Form.Group>
+
+                        <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                            <Form.Label column sm="5">
+                                Kodepos
+                            </Form.Label>
+                            <Col sm="7">
+                                <Form.Control plaintext readOnly disabled defaultValue="Password" />
+                            </Col>
+                        </Form.Group>
+                    </Col>
+
+                </Row>
+                
             </Form>
         )
     }
@@ -157,29 +222,20 @@ function UserMembers () {
     }
 
     // ======================= DATA USER =======================
-    const buttonCreateUser = () => {
-        return (
-            <Button variant="primary" size="sm" >
-                <AiOutlineUserAdd className="mr-2" />
-                Create
-            </Button>
-        )
-    }
-
     const cardBodyUser = () => {
         return (
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th className="text-center">#</th>
                         <th>Nama Lengkap</th>
                         <th>Email</th>
                         <th>Username</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Tanggal Lahir</th>
-                        <th>Status Verified</th>
-                        <th>Tanggal Daftar</th>
-                        <th>Actions</th>
+                        <th className="text-center">Jenis Kelamin</th>
+                        <th className="text-center">Tanggal Lahir</th>
+                        <th className="text-center">Status Verified</th>
+                        <th className="text-center">Tanggal Daftar</th>
+                        <th className="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -194,25 +250,20 @@ function UserMembers () {
             <div className="row">
                 <div className="col-lg-6 offset-6 d-flex justify-content-end">
                     <Pagination className="mb-0">
-                        <Pagination.Prev onClick={ () => setPagination(currPage - 1) } data={currPage} className={currPage ===  1 ? 'disabled' : ''} />
+                        <Pagination.Prev onClick={ () => setPage(currPage - 1) } className={currPage ===  1 ? 'disabled' : ''} />
                         { renderPagination() }
-                        <Pagination.Next onClick={ () => setPagination(currPage + 1) } data={currPage} className={currPage === totalPage ? 'disabled' : ''} />
+                        <Pagination.Next onClick={ () => setPage(currPage + 1) } className={currPage === totalPage ? 'disabled' : ''} />
                     </Pagination>
                 </div>
             </div>
         )
     }
 
-    const setPagination = (paging) => {
-        setPage(parseInt(paging));
-        dispatch(getDataMembers(page, size));
-    }
-
     const renderPagination = () => {
         let pagination = [];
         for(let i = 1; i <= totalPage; i++ ) {
             let active = i === currPage ? 'active' : '';
-            pagination.push(<Pagination.Item key={i} className={active} onClick={ () => setPagination(i) }>{i}</Pagination.Item>)
+            pagination.push(<Pagination.Item key={i} className={active} onClick={ () => setPage(i) }>{i}</Pagination.Item>)
         }
         return pagination;
     }
@@ -222,12 +273,12 @@ function UserMembers () {
             return data.rows.map((item, idx) => {
                 return (
                     <tr key={item.id}>
-                        <td>{ idx + 1 }</td>
-                        <td>{ item.nama_lengkap }</td>
+                        <td className="text-center">{ idx + 1 }</td>
+                        <td>{ item.fullname }</td>
                         <td>{ item.email }</td>
                         <td>{ item.username }</td>
-                        <td>{ item.jenis_kelamin }</td>
-                        <td>
+                        <td className="text-center">{ item.gender }</td>
+                        <td className="text-center">
                             <Moment format='DD MMM YYYY'>
                                 { item.tanggal_lahir }
                             </Moment>
@@ -235,19 +286,15 @@ function UserMembers () {
                         <td className='text-center'>
                             { item.status_verified === 0 ? <span className="text-danger">Tidak Aktif</span> : <span className="text-success">Aktif</span> }
                         </td>
-                        <td>
+                        <td className="text-center">
                             <Moment format='DD MMM YYYY'>
                                 { item.created_at }
                             </Moment>    
                         </td>
-                        <td>
+                        <td className="text-center">
                             <Button className="bg-transparent text-info mr-1" style={{borderWidth: 0}} size="sm" onClick={ () => handleShow_modalDetail() }>
                                 <AiOutlineUser />
                                 {/* Detail */}
-                            </Button>
-                            <Button className="bg-transparent text-warning mr-1" style={{borderWidth: 0}} size="sm" onClick={ () => handleShow_modalEdit() }>
-                                <AiFillEdit />
-                                {/* Edit */}
                             </Button>
                             <Button className="bg-transparent text-danger" style={{borderWidth: 0}} size="sm">
                                 <AiFillDelete />
@@ -272,7 +319,7 @@ function UserMembers () {
     return (
         <div className="container-fluid content-top-gap">
             {/* ==================== DATA USER ====================*/}
-            <Card cardTitle="Data User" buttonCreate={ buttonCreateUser() } cardBody={ cardBodyUser() } cardFooter={ cardFooterUser() } />
+            <Card cardTitle="Data User" cardBody={ cardBodyUser() } cardFooter={ cardFooterUser() } />
             <MyModal size="lg" modalTitle="Alamat User" modalBody={ modalUserDetail() } show={ showModalDetail } handleClose={ () => handleClose_modalDetail() }  />
             <MyModal size="lg" modalTitle="Ubah Data User" modalBody={ modalDataEdit() } show={ showModalEdit } handleClose={ () => handleClose_modalEdit() } />
         </div>

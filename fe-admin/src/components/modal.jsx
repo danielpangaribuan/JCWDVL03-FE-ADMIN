@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Spinner } from 'react-bootstrap';
 
 function MyModal (props) {
     return (
@@ -15,8 +15,10 @@ function MyModal (props) {
             </Modal.Body>
 
             <Modal.Footer>
-                <Button variant="secondary" onClick={ props.handleClose }>Close</Button>
-                <Button variant="primary" onClick={ props.modalSave }>Save changes</Button>
+                <Button variant="transparent" onClick={ props.handleClose }>Close</Button>
+                <Button variant="primary" onClick={ props.modalSave }>
+                    { props.loadingSpinner == false ? 'Save Changes' : <Spinner animation="border" /> } 
+                </Button>
             </Modal.Footer>
         </Modal>
     )
