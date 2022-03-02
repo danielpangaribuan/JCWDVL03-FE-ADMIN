@@ -18,7 +18,7 @@ function Card (props) {
                         <div className="card-body px-4 pt-2 pb-0">
                             { props.cardBody }
                         </div>
-                        <div className="card-footer">
+                        <div className="card-footer px-4">
                             { props.cardFooter }
                         </div>
                     </div>

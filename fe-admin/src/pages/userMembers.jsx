@@ -11,21 +11,22 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function UserMembers () {
     const [page, setPage] = useState(1);
-    const [size, setSize] = useState(5);
+    const [size, setSize] = useState(10);
     const [startDate, setStartDate] = useState(new Date());
     const dispatch = useDispatch();
-    const { data, loading, totalPage, currPage } = useSelector(state => {
+    const { data, loading, totalPage, currPage, totalData } = useSelector(state => {
         return {
             data : state.users.data,
             totalPage : state.users.data.totalPage,
-            currPage: state.users.data.currentPage,
+            currPage : state.users.data.currentPage,
+            totalData : state.users.data.length,
             loading : state.users.loading
         }
     });
 
     useEffect(() => {
         dispatch(getDataUsers(page, size, 0));
-    }, [page]);
+    }, [page, size]);
 
     // ====================== MODAL DETAIL ====================
     const [showModalDetail, setShowModalDetail] = useState(false);
@@ -248,7 +249,17 @@ function UserMembers () {
     const cardFooterUser = () => {
         return (
             <div className="row">
-                <div className="col-lg-6 offset-6 d-flex justify-content-end">
+                <div className="col-lg-6">
+                    <Form>
+                        <Form.Select aria-label="Default Select Status" defaultValue={size} style={{ width: '130px'}} onChange={ (item) => setSize(item.target.value) }>
+                            <option value={ totalData }>All</option>
+                            <option value="10">10 Rows</option>
+                            <option value="25">25 Rows</option>
+                            <option value="50">25 Rows</option>
+                        </Form.Select>
+                    </Form>
+                </div>
+                <div className="col-lg-6 d-flex justify-content-end">
                     <Pagination className="mb-0">
                         <Pagination.Prev onClick={ () => setPage(currPage - 1) } className={currPage ===  1 ? 'disabled' : ''} />
                         { renderPagination() }

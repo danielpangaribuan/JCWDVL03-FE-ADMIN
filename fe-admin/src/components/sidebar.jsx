@@ -39,23 +39,17 @@ function Sidebar () {
                     <li>
                         <a onClick={() => navigation('products')}><i className="fa fa-tachometer"></i><span> Products</span></a>
                     </li>
-                    {/* <li className="menu-list">
-                        <a href="#"><i className="fa fa-cogs"></i>
-                            <span>Elements <i className="lnr lnr-chevron-right"></i></span></a>
-                        <ul className="sub-menu-list">
-                            <li><a href="carousels.html">Carousels</a> </li>
-                            <li><a href="cards.html">Default cards</a> </li>
-                            <li><a href="people.html">People cards</a></li>
-                        </ul>
-                    </li> */}
                     <li>
-                        <a onClick={() => navigation('transaction')} ><i className="fa fa-table"></i> <span>Transaction Products</span></a>
+                        <a onClick={() => navigation('transaction')} ><i className="fa fa-money"></i> <span>Transaction Products</span></a>
                     </li>
                     <li>
-                        <a onClick={() => navigation('user-members')} ><i className="fa fa-th"></i> <span>User Member</span></a>
+                        <a onClick={() => navigation('user-members')} ><i className="fa fa-user"></i> <span>User Member</span></a>
                     </li>
-                    <li className="active">
-                        <a onClick={() => navigation('user-operator')} ><i className="fa fa-file-text"></i> <span>User Operator</span></a>
+                    <li>
+                        <a onClick={() => navigation('user-operator')} ><i className="fa fa-users"></i> <span>User Operator</span></a>
+                    </li>
+                    <li>
+                        <a onClick={() => navigation('report')} ><i className="fa fa-file-text"></i> <span>Report</span></a>
                     </li>
                 </ul>
                 {/* <!-- //sidebar nav end --> */}

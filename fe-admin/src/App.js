@@ -11,6 +11,7 @@ import Sidebar from './components/sidebar';
 import Home from './pages/home';
 import UserMembers from './pages/userMembers';
 import Transaction from './pages/transaction';
+import Report from './pages/report';
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
             {/* <Route path="login" element={<Login />} /> */}
             {/* <Route path="products" element={<Products />} /> */}
             <Route path="transaction" element={<Transaction />} />
-            {/* <Route path="report" element={<Report />} /> */}
+            <Route path="report" element={<Report />} />
             <Route path="user-members" element={<UserMembers />} />
             {/* <Route path="userAdmin" element={<UserAdmin />} /> */}
           </Routes>

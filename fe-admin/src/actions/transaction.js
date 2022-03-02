@@ -2,12 +2,14 @@ import Axios from 'axios';
 import { START_GET_TRANSACTIONS, GET_DATA_TRANSACTIONS, END_GET_TRANSACTIONS, START_DETAIL_TRANSACTION, GET_DETAIL_TRANSACTION, END_DETAIL_TRANSACTION, START_UPDATE_STATUS_TRANSACTION, UPDATE_STATUS_TRANSACTION, END_UPDATE_STATUS_TRANSACTION, GET_COMBO_STATUS_TRANSACTION } from './types';
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const getDataTransactions = () => {
+export const getDataTransactions = (id_transacion, created_from, created_end, fullname, status) => {
     return async (dispatch) => {
         try {
             dispatch({ type: START_GET_TRANSACTIONS });
+            const params = { id_transacion, created_from, created_end, fullname, status }
             const query = `/transactions`;
-            const respond = await Axios.get(API_URL + query);
+            const respond = await Axios.get(API_URL + query, { params } );
+            console.log(respond)
             dispatch({ type: GET_DATA_TRANSACTIONS, payload: respond.data.data });
             dispatch({ type: END_GET_TRANSACTIONS})
         } catch (error) {
