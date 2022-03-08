@@ -25,8 +25,9 @@ function UserMembers () {
     });
 
     useEffect(() => {
-        dispatch(getDataUsers(page, size, 0));
+        dispatch(getDataUsers(page, size, 1));
     }, [page, size]);
+    console.log(data)
 
     // ====================== MODAL DETAIL ====================
     const [showModalDetail, setShowModalDetail] = useState(false);
@@ -330,7 +331,7 @@ function UserMembers () {
     return (
         <div className="container-fluid content-top-gap">
             {/* ==================== DATA USER ====================*/}
-            <Card cardTitle="Data User" cardBody={ cardBodyUser() } cardFooter={ cardFooterUser() } />
+            <Card cardTitleShow={true} cardTitle="Data User" cardBody={ cardBodyUser() } cardFooter={ cardFooterUser() } cardFooterShow={true} />
             <MyModal size="lg" modalTitle="Alamat User" modalBody={ modalUserDetail() } show={ showModalDetail } handleClose={ () => handleClose_modalDetail() }  />
             <MyModal size="lg" modalTitle="Ubah Data User" modalBody={ modalDataEdit() } show={ showModalEdit } handleClose={ () => handleClose_modalEdit() } />
         </div>

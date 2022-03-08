@@ -305,7 +305,7 @@ function Transaction () {
         <div className="container-fluid content-top-gap">
             <Filter filterContent={ filterCard() }/>
             <br />
-            <Card cardTitle="Transaction" cardBody={ tableTransaction() } /* cardFooter={ tableFooterTransaction() } */ />
+            <Card  cardTitleShow={true} cardTitle="Transaction" cardBody={ tableTransaction() } cardFooterShow={true} /* cardFooter={ tableFooterTransaction() } */ />
             <MyModal size="xl" modalTitle="Detail Transaction" modalBody={ modalTransactionDetail() } show={ showModalDetail } handleClose={ () => handleClose_modalDetail() } modalSave={ () => buttonUpdateStatusTransaction() } loadingSpinner={ loadingStatus } />
         </div>
     )

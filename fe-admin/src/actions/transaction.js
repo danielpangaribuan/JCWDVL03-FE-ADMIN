@@ -9,7 +9,7 @@ export const getDataTransactions = (id_transacion, created_from, created_end, fu
             const params = { id_transacion, created_from, created_end, fullname, status }
             const query = `/transactions`;
             const respond = await Axios.get(API_URL + query, { params } );
-            console.log(respond)
+
             dispatch({ type: GET_DATA_TRANSACTIONS, payload: respond.data.data });
             dispatch({ type: END_GET_TRANSACTIONS})
         } catch (error) {

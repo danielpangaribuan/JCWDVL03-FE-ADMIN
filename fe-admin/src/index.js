@@ -13,6 +13,8 @@ import transactionDetailReducer from './reducers/transactionDetail-reducer';
 import transactionUpdateStatusReducer from './reducers/transactionUpdateStatus-reducer';
 import comboStatusTransactionReducer from './reducers/transactionStatusCombo-reducer';
 import locationReducer from './reducers/location-reducer';
+import reportTotalDataReducer from './reducers/reportTotalData-reducer';
+import reportSalesProductReducer from './reducers/reportSalesProduct-reducer';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/style-starter.css';
@@ -23,7 +25,9 @@ const allReducer = combineReducers({
   transactionDetail: transactionDetailReducer,
   transactionUpdateStatus: transactionUpdateStatusReducer,
   transactionStatusCombo: comboStatusTransactionReducer,
-  location: locationReducer
+  location: locationReducer,
+  reportTotalData: reportTotalDataReducer,
+  reportSalesProduct: reportSalesProductReducer
 });
 
 const STORE = createStore(allReducer, composeWithDevTools(applyMiddleware(ReduxThunk)));

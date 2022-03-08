@@ -12161,10 +12161,10 @@ a.github {
 .card_border:hover i.lnr.lnr-users {
   color: var(--primary); }
 
-.card_border:hover i.lnr.lnr-eye {
+.card_border:hover i.lnr.lnr-diamond {
   color: var(--secondary); }
 
-.card_border:hover i.lnr.lnr-cloud-download {
+.card_border:hover i.lnr.lnr-briefcase {
   color: var(--success); }
 
 .card_border:hover i.lnr.lnr-cart {
