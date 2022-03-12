@@ -1,8 +1,9 @@
-import { START_GET_TOTAL_DATA, GET_TOTAL_DATA, END_GET_TOTAL_DATA, GET_INCOME_STATEMENT } from '../actions/types';
+import { START_GET_TOTAL_DATA, GET_TOTAL_DATA, END_GET_TOTAL_DATA, GET_INCOME_STATEMENT, GET_NUMBER_OF_SALES } from '../actions/types';
 
 const INITIAL_STATE = {
     data: [],
     data_income: [],
+    number_sales: [],
     loading: false
 }
 
@@ -17,7 +18,8 @@ function getTotalData (state = INITIAL_STATE, action) {
 
         case GET_INCOME_STATEMENT :
             return { ...state, data_income: action.payload }
-
+        case GET_NUMBER_OF_SALES :
+            return { ...state, number_sales: action.payload }
         default :
             return state
     }

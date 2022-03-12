@@ -45,6 +45,7 @@ function Transaction () {
 
         setStartDate(picker.startDate);
         setEndDate(picker.endDate);
+        console.log(startDate)
     }
 
     // ====================== MODAL DETAIL ====================
@@ -229,8 +230,6 @@ function Transaction () {
     const submitFilter = () => {
         let fullname_fltr = document.getElementById('fullname_fltr').value;
         let invoice_fltr = document.getElementById('invoice_fltr').value;
-        console.log(startDate, endDate)
-        console.log(moment(startDate).format('YYYY-MM-DD'), moment(endDate).format('YYYY-MM-DD'))
         dispatch(getDataTransactions(invoice_fltr, moment(startDate).format('YYYY-MM-DD'), moment(endDate).format('YYYY-MM-DD'), fullname_fltr, statusFltr));
     }
 
