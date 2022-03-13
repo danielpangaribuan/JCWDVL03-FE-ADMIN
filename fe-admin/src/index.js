@@ -15,6 +15,7 @@ import comboStatusTransactionReducer from './reducers/transactionStatusCombo-red
 import locationReducer from './reducers/location-reducer';
 import reportTotalDataReducer from './reducers/reportTotalData-reducer';
 import reportSalesProductReducer from './reducers/reportSalesProduct-reducer';
+import ProductReducer from './reducers/product-reducer';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/style-starter.css';
@@ -27,7 +28,8 @@ const allReducer = combineReducers({
   transactionStatusCombo: comboStatusTransactionReducer,
   location: locationReducer,
   reportTotalData: reportTotalDataReducer,
-  reportSalesProduct: reportSalesProductReducer
+  reportSalesProduct: reportSalesProductReducer,
+  products : ProductReducer,
 });
 
 const STORE = createStore(allReducer, composeWithDevTools(applyMiddleware(ReduxThunk)));

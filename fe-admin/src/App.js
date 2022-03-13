@@ -12,6 +12,7 @@ import Home from './pages/home';
 import UserMembers from './pages/userMembers';
 import Transaction from './pages/transaction';
 import Report from './pages/report';
+import Products from "./pages/products";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Routes>
             <Route path="" element={<Home />} />
             {/* <Route path="login" element={<Login />} /> */}
-            {/* <Route path="products" element={<Products />} /> */}
+            <Route path="products" element={<Products />} />
             <Route path="transaction" element={<Transaction />} />
             <Route path="report" element={<Report />} />
             <Route path="user-members" element={<UserMembers />} />
