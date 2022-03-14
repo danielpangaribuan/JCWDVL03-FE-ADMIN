@@ -38,3 +38,22 @@ export const addNewProduct = (body) => {
         }
     }
 }
+
+export const deleteProduct = (id) => {
+    return async (dispatch) => {
+        try {
+            dispatch({ type : START_PRODUCTS})
+
+            const respond = await axios.delete(API_URL + `/products/${id}`)
+            console.log(respond.data)
+
+            const { data } = await axios.get(API_URL + '/products')
+            dispatch({type : GET_PRODUCTS, payload : data })
+            
+            dispatch({type : END_PRODUCTS})
+        } catch ({ respond }) {
+            dispatch({type : END_PRODUCTS})
+            console.log(respond && respond.data)
+        }
+    }
+}
