@@ -19,7 +19,7 @@ function Sidebar () {
             {/* <!-- if logo is image enable this --> */}
             {/* <!-- image logo -- */}
             <div className="logo">
-                <a onClick={() => navigation('/')}>
+                <a>
                     <img src="image-path" alt="Your logo" title="Your logo" className="img-fluid" style={{height: '35px'}} />
                 </a>
             </div>

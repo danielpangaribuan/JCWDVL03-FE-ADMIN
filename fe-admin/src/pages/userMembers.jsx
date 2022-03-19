@@ -151,77 +151,6 @@ function UserMembers () {
             </Form>
         )
     }
-    
-    // ====================== MODAL EDIT =======================
-    const [showModalEdit, setShowModalEdit] = useState(false);
-    const handleClose_modalEdit = () => setShowModalEdit(false);
-    const handleShow_modalEdit = () => setShowModalEdit(true);
-
-    const modalDataEdit = () => {
-        return (
-            <Form>
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-                    <Form.Label column sm="3">
-                        Nama Lengkap
-                    </Form.Label>
-                    <Col sm="9">
-                    <Form.Control type="text" placeholder="Nama Lengkap" />
-                    </Col>
-                </Form.Group>
-
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-                    <Form.Label column sm="3">
-                        Email
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control type="text" placeholder="Email" />
-                    </Col>
-                </Form.Group>
-
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintexttext">
-                    <Form.Label column sm="3">
-                        username
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control type="text" placeholder="Username" />
-                    </Col>
-                </Form.Group>
-
-                <Form.Group as={Row} className="mb-3" controlId="jenisKelamin">
-                    <Form.Label column sm="3">
-                        Jenis Kelamin
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Select aria-label="Default Select Status">
-                            <option value="">Laki-laki</option>
-                            <option value="">Perempuan</option>
-                        </Form.Select>
-                    </Col>
-                </Form.Group>
-
-                <Form.Group as={Row} className="mb-3" controlId="tanggalLahir">
-                    <Form.Label column sm="3">
-                        Tanggal Lahir
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control type="text" placeholder="text" />
-                    </Col>
-                </Form.Group>
-
-                <Form.Group as={Row} className="mb-3" controlId="statusUser">
-                    <Form.Label column sm="3">
-                        Status User
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Select aria-label="Default Select Status">
-                            <option value="">Aktif</option>
-                            <option value="">Tidak Aktif</option>
-                        </Form.Select>
-                    </Col>
-                </Form.Group>
-            </Form>
-        )
-    }
 
     // ======================= DATA USER =======================
     const cardBodyUser = () => {
@@ -332,8 +261,7 @@ function UserMembers () {
         <div className="container-fluid content-top-gap">
             {/* ==================== DATA USER ====================*/}
             <Card cardTitleShow={true} cardTitle="Data User" cardBody={ cardBodyUser() } cardFooter={ cardFooterUser() } cardFooterShow={true} />
-            <MyModal size="lg" modalTitle="Alamat User" modalBody={ modalUserDetail() } show={ showModalDetail } handleClose={ () => handleClose_modalDetail() }  />
-            <MyModal size="lg" modalTitle="Ubah Data User" modalBody={ modalDataEdit() } show={ showModalEdit } handleClose={ () => handleClose_modalEdit() } />
+            <MyModal size="lg" modalTitle="Alamat User" modalBody={ modalUserDetail() } show={ showModalDetail } handleClose={ () => handleClose_modalDetail() } loadingSpinner={loading} />
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getSalesProduct, reportIncomeStatement, getNumberOfSales, getTotalData  } from '../actions/report';
+import { getSalesProduct, reportIncomeStatement, getNumberOfSales, getTotalData, getReportChurn, getReportCost } from '../actions/report';
 
 import Filter from '../components/filter';
 import Card from '../components/card';
@@ -28,14 +28,16 @@ function Report () {
     const [startDate, setStartDate] = useState(moment().subtract(1, 'years').format('DD/MM/YYYY'));
     const [endDate, setEndDate] = useState(moment().format('DD/MM/YYYY'));
 
-    const { data, data_income, totalSales, totalProfit, totalRevenue, number_sales } = useSelector(state => {
+    const { data, data_income, totalSales, totalProfit, totalRevenue, number_sales, report_churn, report_cost } = useSelector(state => {
         return {
             data: state.reportSalesProduct.data,
             data_income: state.reportTotalData.data_income,
             totalSales: state.reportTotalData.data.total_sales,
             totalProfit: state.reportTotalData.data.total_profit,
             totalRevenue: state.reportTotalData.data.total_revenue,
-            number_sales: state.reportTotalData.number_sales
+            number_sales: state.reportTotalData.number_sales,
+            report_churn: state.reportTotalData.report_churn,
+            report_cost: state.reportTotalData.report_cost
         }
     });
 
@@ -44,6 +46,8 @@ function Report () {
         dispatch(reportIncomeStatement(moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD'), moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD')));
         dispatch(getTotalData(moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD'), moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD')));
         dispatch(getNumberOfSales(moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD'), moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD')));
+        dispatch(getReportChurn(moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD'), moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD')));
+        dispatch(getReportCost(moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD'), moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD')));
         if (!revenue) {
             onSubmit().click();
         }
@@ -62,6 +66,8 @@ function Report () {
         dispatch(reportIncomeStatement(moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD'), moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD')));
         dispatch(getTotalData(moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD'), moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD')));
         dispatch(getNumberOfSales(moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD'), moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD')));
+        dispatch(getReportChurn(moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD'), moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD')));
+        dispatch(getReportCost(moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD'), moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD')));
         if (data_income.length && data.length && number_sales.length) {
             setRevenue([]);
             setNetIncome([]);
@@ -102,7 +108,6 @@ function Report () {
                 <div className="cardPie">
                     <div className="row">
                         <div className="col-sm-4">
-                            <h4 style={{ whiteSpace: 'nowrap' }}>TOP 3 MOST SOLD</h4>
                             <ul className="p-0 d-flex justify-content-center align-items-start flex-column h-100"
                                  style={{ whiteSpace: 'nowrap',
                                  fontSize: '18px', lineHeight: '30px' }} >
@@ -155,13 +160,14 @@ function Report () {
                         theme={VictoryTheme.material}
                         height={400}
                         width={600}
+                        domainPadding={{ x: 25 }}
+                        padding={{ top: 35, bottom: 80, right: 35, left: 35 }}
                         >
 
                         <VictoryBar horizontal
                             textAnchor="start"
-                            // domain={{ x: [0, numberOfSales[0].y ] }}
-                            domainPadding={{ x: 0 }}
-                            offsetY={22}
+                            domain={{ x: [0, numberOfSales[0].y ], y: [0, numberOfSales[0].y] }}
+                            offsetY={10}
                             style={{ 
                                 fontSize: '20px', 
                                 data: {
@@ -177,11 +183,11 @@ function Report () {
                         />
                         <VictoryAxis dependentAxis
                             label="Quantity"
-                            offsetY={42}
+                            offsetY={80}
                             style={{
                                 axis: {stroke: "#fff" },
                                 axisLabel: {fontSize: 20, padding: 30},
-                                grid: { stroke: "#000", strokeWidth: 1 },
+                                grid: { stroke: "#BFBFBF", strokeWidth: 1 },
                                 ticks: { stroke: "#000", size: -4 },
                                 tickLabels: {fontSize: 15, padding: 10}
                                 // grid: { fille:}
@@ -201,9 +207,9 @@ function Report () {
                         theme={VictoryTheme.material} 
                         height={200} 
                         domainPadding={{ x: 25 }}
-                        padding={{ top: 35, bottom: 35, right: 35, left: 35 }}
+                        padding={{ top: 20, bottom: 35, right: 35, left: 35 }}
                     >
-                        <VictoryLegend x={80} y={10}
+                        <VictoryLegend x={80} y={0}
                             centerTitle
                             orientation="horizontal"
                             gutter={20}
@@ -275,6 +281,100 @@ function Report () {
                 </div>
             )
         }
+    }
+
+    const cardChurn = () => {
+        if (report_churn.length) {
+            return (
+                <div className="py-4">
+                    <div className="up-cross-selling">
+                        <h4>Up/Cross Selling</h4>
+                        <table className='w-100' style={{ fontSize: 18 }}>
+                            <tbody>
+                                <tr>
+                                    <th>Revenue</th>
+                                    <th className="text-primary text-right" style={{ fontSize: 24 }}>
+                                        Rp. 89,000
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>% Revenue</th>
+                                    <td className="text-primary text-right" style={{ fontSize: 24 }}>
+                                        2%
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr />
+                    <div className="churn">
+                        <h4>Churn</h4>
+                        <table className='w-100' style={{ fontSize: 18 }}>
+                            <tbody>
+                                <tr>
+                                    <th>Total</th>
+                                    <td className='text-primary text-right' style={{ fontSize: 24 }}>
+                                        { report_churn[0].total_user }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Rate</th>
+                                    <td className="text-primary text-right" style={{ fontSize: 24 }}>
+                                    { report_churn[0].rate + '%' }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Revenue</th>
+                                    <th className="text-primary text-right" style={{ fontSize: 24 }}>
+                                        Rp. 89,000
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    const costBreakdown = () => {
+        return (
+            <div>
+                <div className="row">
+                    <div className="col-sm-4">
+                        <h4 style={{ whiteSpace: 'nowrap' }}>TOP 3 MOST SOLD</h4>
+                        <ul className="p-0 d-flex justify-content-center align-items-start flex-column h-100"
+                                style={{ whiteSpace: 'nowrap',
+                                fontSize: '18px', lineHeight: '30px' }} >
+                            {
+                                dataPie.map((item, idx) => {
+                                    return (
+                                        <li style={{ listStyle: 'none' }} key={ idx }>
+                                            <AiFillStar className="mr-3" style={{ color: item.color }} />
+                                            { item.x }
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </div>
+                    <div className="col-sm-8">
+                        <VictoryPie 
+                            data={[report_cost]}
+                            x="percentage"
+                            y="percentage"
+                            colorScale={dataColor}
+                            labelPosition="centroid"
+                            labelPlacement="vertical"
+                            height={400}
+                            labels={({ datum }) => `${datum.y}`}
+                            labelRadius={({ innerRadius }) => innerRadius + 65 }
+                            innerRadius={100} 
+                            style={{ labels: { fill: ({ datum }) => datum.color, fontSize: 24 }}} />
+                    </div>
+                </div>
+            </div>
+        )
     }
 
     // =================== CARD SALES ===================
@@ -372,11 +472,20 @@ function Report () {
             <br />
             <div className="row">
                 <div className="col-md-7">
-                    <Card cardTitleShow={false} cardFooterShow={false} cardBody={ cardBar() } />
+                    <Card cardTitleShow={true} cardTitle="SALES REVENUE" cardFooterShow={false} cardBody={ cardBar() } />
+
+                    <div className="row">
+                        <div className="col-md-5">
+                            <Card cardTitleShow={false} cardFooterShow={false} cardBody={ cardChurn() } />
+                        </div>
+                        <div className="col-md-7">
+                            <Card cardTitleShow={false} cardFooterShow={false} cardBody={ costBreakdown() } />
+                        </div>
+                    </div>
                 </div>
                 <div className="col-md-5">
-                    <Card cardTitleShow={false} cardFooterShow={false} cardBody={ cardPie() } />
-                    <Card cardTitleShow={false} cardFooterShow={false} cardBody={ cardBarNumberOfSales() } />
+                    <Card cardTitleShow={true} cardTitle="TOP 3 MOST SOLD" cardFooterShow={false} cardBody={ cardPie() } />
+                    <Card cardTitleShow={true} cardTitle="INCREMENTAL SALES" cardFooterShow={false} cardBody={ cardBarNumberOfSales() } />
                 </div>
             </div>
             <Card cardTitleShow={true} cardTitle="Data Report" cardBody={ cardBody() } /* cardFooter={ tableFooterTransaction() } */ cardFooterShow={true} />

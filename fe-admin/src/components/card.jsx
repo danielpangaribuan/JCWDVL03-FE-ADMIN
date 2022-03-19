@@ -10,7 +10,7 @@ function Card (props) {
                         { 
                             props.cardTitleShow === true ? 
                             <div className="card-header card-grid__header px-4 py-3 bg-transparent d-flex justify-content-between align-items-center">
-                                <h5>
+                                <h5 className='text-primary'>
                                     { props.cardTitle }
                                 </h5>
                                 <div className="button-create">
