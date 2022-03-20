@@ -15,6 +15,7 @@ import Report from './pages/report';
 import Products from "./pages/products";
 
 function App() {
+
   return (
     <div className="App">
       <section>

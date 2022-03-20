@@ -13,16 +13,11 @@ function Sidebar () {
         <div className="sidebar-menu sticky-sidebar-menu">
             {/* <!-- logo start --> */}
             <div className="logo">
-                <h1><a href="index.html">Collective</a></h1>
+                <h1><a href="index.html">WAREHOUSE</a></h1>
             </div>
 
             {/* <!-- if logo is image enable this --> */}
             {/* <!-- image logo -- */}
-            <div className="logo">
-                <a>
-                    <img src="image-path" alt="Your logo" title="Your logo" className="img-fluid" style={{height: '35px'}} />
-                </a>
-            </div>
             {/* <!-- //image logo --> */}
 
             <div className="logo-icon text-center">
@@ -36,28 +31,28 @@ function Sidebar () {
 
                 {/* <!-- sidebar nav start --> */}
                 <ul className="nav nav-pills nav-stacked custom-nav">
-                    <li>
+                    <li style={{ cursor: 'pointer' }}>
                         <a onClick={() => navigation('products')}><i className="fa fa-tachometer"></i><span> Products</span></a>
                     </li>
-                    <li>
+                    <li style={{ cursor: 'pointer' }}>
                         <a onClick={() => navigation('transaction')} ><i className="fa fa-money"></i> <span>Transaction Products</span></a>
                     </li>
-                    <li>
+                    <li style={{ cursor: 'pointer' }}>
                         <a onClick={() => navigation('user-members')} ><i className="fa fa-user"></i> <span>User Member</span></a>
                     </li>
-                    <li>
+                    <li style={{ cursor: 'pointer' }}>
                         <a onClick={() => navigation('user-operator')} ><i className="fa fa-users"></i> <span>User Operator</span></a>
                     </li>
-                    <li>
+                    <li style={{ cursor: 'pointer' }}>
                         <a onClick={() => navigation('report')} ><i className="fa fa-file-text"></i> <span>Report</span></a>
                     </li>
                 </ul>
                 {/* <!-- //sidebar nav end --> */}
                 {/* <!-- toggle button start --> */}
-                <a className="toggle-btn">
+                {/* <a className="toggle-btn">
                     <i className="fa fa-angle-double-left menu-collapsed__left"><span>Collapse Sidebar</span></i>
                     <i className="fa fa-angle-double-right menu-collapsed__right"></i>
-                </a>
+                </a> */}
                 {/* <!-- //toggle button end --> */}
             </div>
         </div>
