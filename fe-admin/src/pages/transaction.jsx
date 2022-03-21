@@ -10,9 +10,9 @@ import { Table, Form, Col, Row, FloatingLabel, Alert, Button } from 'react-boots
 import { BsFillBagFill } from 'react-icons/bs';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'bootstrap-daterangepicker/daterangepicker.css';
-
 import { getDataTransactions, getDetailTransactions, comboStatusTransaction, updateStatusTransaction } from '../actions/transaction';
 
+const API_URL = "http://localhost:2000";
 function Transaction () {
     const [startDate, setStartDate] = useState(moment().subtract(1, 'weeks').format('DD/MM/YYYY'));
     const [endDate, setEndDate] = useState(moment().format('DD/MM/YYYY'));
@@ -107,7 +107,9 @@ function Transaction () {
                                     </tr>
                                     <tr>
                                         <th>Bukti Transfer</th>
-                                        <td></td>
+                                        <td>
+                                            <img src={API_URL + detail.receipt_transfer} />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Waktu Transaksi</th>
