@@ -1,8 +1,11 @@
-import { GET_PRODUCTS, START_PRODUCTS,END_PRODUCTS } from "../actions/types";
+import { GET_PRODUCTS, START_PRODUCTS,END_PRODUCTS,GET_CATEGORY,GET_WAREHOUSE} from "../actions/types";
 
 const INITIAL_STATE = {
     loading : false,
-    data : []
+    data : [],
+    category: [],
+    warehouse: [],
+
 }
 
 const ProductReducer = (state = INITIAL_STATE, action) => {
@@ -12,7 +15,11 @@ const ProductReducer = (state = INITIAL_STATE, action) => {
         case END_PRODUCTS : 
             return { ...state, loading : false} 
         case GET_PRODUCTS :
-            return {...state, data : action.payload.data}
+            return { ...state, data : action.payload.data}
+        case GET_CATEGORY :
+            return { ...state, category :action.payload.data}
+        case GET_WAREHOUSE :
+            return { ...state, warehouse: action.payload.data}
         default :
             return state
     }

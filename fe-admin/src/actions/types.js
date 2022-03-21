@@ -4,6 +4,8 @@ export const LOGOUT = 'LOGOUT';
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const START_PRODUCTS = 'START_PRODUCTS';
 export const END_PRODUCTS = 'END_PRODUCTS';
+export const GET_CATEGORY = "GET_CATEGORY";
+export const GET_WAREHOUSE = "GET_WAREHOUSE";
 
 export const GET_DATA_USERS = 'GET_DATA_USERS';
 export const START_GET_USERS = 'START_GET_USERS';
